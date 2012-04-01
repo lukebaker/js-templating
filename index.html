@@ -6,6 +6,20 @@
     <script src="libs/ICanHaz.min.js" ></script>
     <script src="libs/underscore-min.js" ></script>
     <script src="libs/backbone-min.js" ></script>
+    <script src="js-templating.js" ></script>
+
+    <script type="text/javascript">
+      var routes = {
+        "" : "default",
+        "hello/world" : {
+          "hello" : {
+            "text" : "Hello, World!"
+          }
+        }
+      };
+
+      Templating.start(routes);
+    </script>
 
     <script id="hello" type="text/html">
       <p>{{text}}</p>
@@ -14,59 +28,7 @@
 
     <script id="default" type="text/html">
       <h3>Blammo!</h3>
-      <a href="/hello">Hello</a>
-    </script>
-
-    <script type="text/javascript">
-      $(function() {
-        var App = Backbone.Router.extend({
-
-          initialize: function(options) {
-            var that = this;
-            _.each(options.routeViews, function(view, route) {
-              var data = {};
-              // if view is specified as object, key is view name
-              // and value is data we'll send to the template
-              if (_.isObject(view)) {
-                key  = _.first(_.keys(view));
-                _.extend(data, view[key]);
-                view = key;
-              }
-
-              that.route(route, view, function() {
-                _.extend(data, {
-                  params : {
-                    route: route,
-                    view: view,
-                    args: _.values(arguments)
-                  }
-                });
-
-                $('body').html(ich[view](data));
-              });
-            });
-          }
-
-        });
-        window.app = new App({routeViews: {
-          "" : "default",
-          "hello" : { "hello" : {
-            "text" : "Hello, World!"
-          }}
-        }});
-
-        // disable pushState so relative image urls can work locally
-        Backbone.history.start({pushState:false});
-
-        $(document).on('click', 'a', function(ev) {
-          // if this is a link with protocol, don't do anything
-          if (!$(ev.target).attr('href').match(/^[^:]+:\/\//)) {
-            ev.preventDefault();
-            app.navigate($(ev.target).attr('href'), {trigger: true});
-          }
-        });
-
-      });
+      <a href="hello/world">Hello</a>
     </script>
 
     <style>
