@@ -24,7 +24,7 @@
           initialize: function(options) {
             var that = this;
             _.each(options.routeViews, function(view, route) {
-              data = {};
+              var data = {};
               // if view is specified as object, key is view name
               // and value is data we'll send to the template
               if (_.isObject(view)) {
