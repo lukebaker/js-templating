@@ -38,9 +38,9 @@ Templating.start = function(routes) {
   
     $(document).on('click', 'a', function(ev) {
       // if this is a link with protocol, don't do anything
-      if (!$(ev.target).attr('href').match(/^[^:]+:\/\//)) {
+      if (!$(ev.currentTarget).attr('href').match(/^[^:]+:\/\//)) {
         ev.preventDefault();
-        app.navigate($(ev.target).attr('href'), {trigger: true});
+        app.navigate($(ev.currentTarget).attr('href'), {trigger: true});
       }
     });
   
