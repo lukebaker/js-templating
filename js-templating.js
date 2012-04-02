@@ -26,13 +26,32 @@ Templating.start = function(routes) {
           }
   
           that.route(route, view, function() {
-            _.extend(data, {
-              params : {
+            var args = _.values(arguments);
+            var namedParams = {};
+
+            // pull out any named parameters
+            _.each(route.match(/:\w+/g), function(np) {
+              namedParams[np.slice(1)] = args.shift();
+            });
+
+            // I think null values are easier to handle with an else
+            // than empty arrays in dust.js templating
+            if (args.length === 0) {
+              args = null;
+            }
+
+            // special params object includes route, view,
+            // named params and remaining args.
+            var params = _.extend({},
+              {
                 route: route,
                 view: view,
-                args: _.values(arguments)
-              }
-            });
+                args: args
+              },
+              namedParams
+            );
+
+            _.extend(data, {params: params});
   
             dust.render(view, data, function(err, output) {
               if (err) {
