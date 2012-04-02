@@ -1,5 +1,15 @@
 window.Templating = {};
 Templating.start = function(routes) {
+
+  function compileTemplates() {
+    $('script[type="text/html"]').each(function(a, b) {
+      var script = $(this),
+      text   = $.trim(script.html());
+
+      dust.compileFn(text, script.attr('id'));
+    });
+  }
+
   $(function() {
     var App = Backbone.Router.extend({
   
@@ -24,13 +34,21 @@ Templating.start = function(routes) {
               }
             });
   
-            $('body').html(ich[view](data));
+            dust.render(view, data, function(err, output) {
+              if (err) {
+                alert(err);
+              }
+              else {
+                $('body').html(output);
+              }
+            });
           });
         });
       }
   
     });
 
+    compileTemplates();
     var app = new App({routeViews: routes});
   
     // disable pushState so relative image urls can work locally

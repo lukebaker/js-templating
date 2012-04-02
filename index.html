@@ -3,7 +3,7 @@
   <head>
     <title>Template Demo</title>
     <script src="libs/jquery-1.7.2.min.js"></script>
-    <script src="libs/ICanHaz.min.js" ></script>
+    <script src="libs/dust-full-0.3.0.min.js" ></script>
     <script src="libs/underscore-min.js" ></script>
     <script src="libs/backbone-min.js" ></script>
     <script src="js-templating.js" ></script>
@@ -22,13 +22,18 @@
     </script>
 
     <script id="hello" type="text/html">
-      <p>{{text}}</p>
+      {>header/}
+      <p>{text}</p>
       <a href="/">Back</a>
     </script>
 
     <script id="default" type="text/html">
       <h3>Blammo!</h3>
       <a href="hello/world">Hello</a>
+    </script>
+
+    <script id="header" type="text/html">
+      <h1>Header</h1>
     </script>
 
     <style>

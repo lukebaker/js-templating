@@ -5,14 +5,14 @@ This is a collection of several JS libraries with a small bit of glue to allow s
 ## Requirements
 
 * jQuery
-* ICanHaz
+* dust.js
 * underscore.js
 * backbone.js
 
 
 ```html
  <script src="libs/jquery-1.7.2.min.js"></script>
- <script src="libs/ICanHaz.min.js" ></script>
+ <script src="libs/dust-full-0.3.0.min.js" ></script>
  <script src="libs/underscore-min.js" ></script>
  <script src="libs/backbone-min.js" ></script>
 ```
@@ -64,7 +64,7 @@ To break up the HTML into logical chunks, simply use the partial functionality a
 
 ```html
  <script id="home" type="text/html">
-  {{>header}
+  {>header/}
   <h3>Blammo!</h3>
  </script>
  
